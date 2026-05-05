@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>How I Made This – Gift With Love</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Jost:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --linen:    #f5efe6;
+      --oat:      #ede4d3;
+      --sand:     #d9c8ae;
+      --terra:    #b5541c;
+      --terra-dk: #8c3f12;
+      --amber:    #c8842a;
+      --walnut:   #3b2510;
+      --bark:     #6b4226;
+      --sage:     #7a8c6e;
+      --moss:     #4e5e42;
+      --text:     #2c1a0e;
+      --muted:    #7a6352;
+      --card-bg:  #faf5ee;
+      --code-bg:  #2a1c0f;
+      --code-text:#e8d5b7;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Jost', sans-serif;
+      background: var(--linen);
+      color: var(--text);
+      overflow-x: hidden;
+      line-height: 1.7;
+    }
+
+    /* grain */
+    body::before {
+      content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+      opacity: 0.04;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.1rem 3rem;
+      background: rgba(245,239,230,0.93); backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(181,84,28,0.15);
+    }
+    .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 600; color: var(--terra); text-decoration: none; }
+    .nav-links { display: flex; gap: 2.2rem; flex-wrap: wrap; }
+    .nav-links a {
+      text-decoration: none; font-size: 0.82rem; font-weight: 500;
+      color: var(--bark); letter-spacing: 0.12em; text-transform: uppercase;
+      transition: color 0.2s; position: relative;
+    }
+    .nav-links a::after { content: ''; position: absolute; bottom: -3px; left: 0; right: 0; height: 1.5px; background: var(--terra); transform: scaleX(0); transition: transform 0.25s; transform-origin: left; }
+    .nav-links a:hover { color: var(--terra); }
+    .nav-links a:hover::after, .nav-links a.active::after { transform: scaleX(1); }
+    .nav-links a.active { color: var(--terra); }
+
+    /* ── HERO HEADER ── */
+    .page-header {
+      padding: 9rem 2rem 4rem; text-align: center; position: relative;
+      background:
+        radial-gradient(ellipse at 20% 60%, rgba(200,132,42,0.13) 0%, transparent 55%),
+        radial-gradient(ellipse at 80% 30%, rgba(78,94,66,0.1) 0%, transparent 45%),
+        var(--linen);
+      overflow: hidden;
+    }
+    .page-header::after {
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(to right, transparent, var(--sand), var(--terra), var(--sand), transparent);
+    }
+    .header-badge {
+      display: inline-block; margin-bottom: 1.4rem;
+      padding: 0.4rem 1.2rem; border-radius: 999px;
+      border: 1.5px solid var(--sand); background: var(--card-bg);
+      font-size: 0.72rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--amber);
+    }
+    .page-header h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.4rem, 6vw, 4rem); font-weight: 600;
+      color: var(--walnut); margin-bottom: 1rem; line-height: 1.12;
+    }
+    .page-header h1 em { font-style: italic; color: var(--terra); }
+    .page-header p {
+      font-size: 1rem; color: var(--muted); font-weight: 300;
+      max-width: 560px; margin: 0 auto; line-height: 1.8;
+    }
+
+    /* ── MAIN LAYOUT ── */
+    .page-wrap {
+      max-width: 860px; margin: 0 auto;
+      padding: 4rem 1.5rem 7rem;
+      position: relative; z-index: 1;
+    }
+
+    /* ── INTRO BOX ── */
+    .intro-box {
+      background: var(--card-bg);
+      border: 1px solid var(--sand);
+      border-left: 4px solid var(--terra);
+      border-radius: 14px;
+      padding: 1.8rem 2rem;
+      margin-bottom: 3.5rem;
+      box-shadow: 0 3px 14px rgba(59,37,16,0.07);
+    }
+    .intro-box p { font-size: 0.97rem; color: var(--muted); line-height: 1.8; }
+    .intro-box p + p { margin-top: 0.8rem; }
+    .intro-box strong { color: var(--terra); font-weight: 600; }
+
+    /* ── SECTION HEADER ── */
+    .section-num {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 36px; height: 36px; border-radius: 50%;
+      background: var(--terra); color: #fff;
+      font-size: 0.88rem; font-weight: 600;
+      flex-shrink: 0; margin-right: 0.9rem;
+      box-shadow: 0 3px 10px rgba(181,84,28,0.3);
+    }
+    .step {
+      margin-bottom: 3.5rem;
+      opacity: 0;
+      animation: fadeUp 0.7s ease forwards;
+    }
+    .step:nth-child(1) { animation-delay: 0.1s; }
+    .step:nth-child(2) { animation-delay: 0.2s; }
+    .step:nth-child(3) { animation-delay: 0.3s; }
+    .step:nth-child(4) { animation-delay: 0.4s; }
+    .step:nth-child(5) { animation-delay: 0.5s; }
+    .step:nth-child(6) { animation-delay: 0.6s; }
+
+    .step-header {
+      display: flex; align-items: center;
+      margin-bottom: 1.3rem; padding-bottom: 1rem;
+      border-bottom: 1.5px solid var(--sand);
+    }
+    .step-header h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.55rem; font-weight: 600; color: var(--walnut);
+      line-height: 1.2;
+    }
+    .step-header h2 span { font-style: italic; color: var(--terra); }
+
+    /* ── PROMPT BLOCK ── */
+    .prompt-label {
+      font-size: 0.68rem; font-weight: 600; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--amber);
+      margin-bottom: 0.5rem;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .prompt-label::before { content: '💬'; font-size: 0.85rem; }
+
+    .prompt-block {
+      background: var(--walnut);
+      border-radius: 12px; overflow: hidden;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 4px 18px rgba(59,37,16,0.18);
+    }
+    .prompt-block-bar {
+      display: flex; align-items: center; gap: 0.5rem;
+      padding: 0.65rem 1rem;
+      background: rgba(255,255,255,0.06);
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+    .dot { width: 10px; height: 10px; border-radius: 50%; }
+    .dot.r { background: #e06c6c; }
+    .dot.y { background: #e0c46c; }
+    .dot.g { background: #6cbf7a; }
+    .prompt-block-bar span { font-size: 0.72rem; color: rgba(255,255,255,0.35); margin-left: 0.3rem; letter-spacing: 0.05em; font-family: 'JetBrains Mono', monospace; }
+    .prompt-text {
+      padding: 1.2rem 1.4rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.84rem; line-height: 1.75;
+      color: var(--code-text);
+      white-space: pre-wrap; word-break: break-word;
+    }
+    .prompt-text .highlight { color: #e8a86a; }
+    .prompt-text .keyword { color: #9fd49f; }
+
+    /* ── RESULT BLOCK ── */
+    .result-label {
+      font-size: 0.68rem; font-weight: 600; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--moss);
+      margin-bottom: 0.5rem;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .result-label::before { content: '✨'; font-size: 0.85rem; }
+
+    .result-block {
+      background: var(--card-bg);
+      border: 1px solid var(--sand);
+      border-left: 3px solid var(--moss);
+      border-radius: 12px;
+      padding: 1.4rem 1.6rem;
+      margin-bottom: 0.5rem;
+      box-shadow: 0 2px 10px rgba(59,37,16,0.06);
+    }
+    .result-block p { font-size: 0.92rem; color: var(--muted); line-height: 1.75; }
+    .result-block p + p { margin-top: 0.7rem; }
+    .result-block ul { margin-top: 0.7rem; padding-left: 1.3rem; }
+    .result-block li { font-size: 0.9rem; color: var(--muted); line-height: 1.7; margin-bottom: 0.3rem; }
+    .result-block li::marker { color: var(--amber); }
+    .result-block strong { color: var(--bark); font-weight: 600; }
+
+    /* ── PILL TAGS ── */
+    .tag-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem; }
+    .tag {
+      padding: 0.28rem 0.85rem; border-radius: 999px;
+      background: var(--oat); border: 1px solid var(--sand);
+      font-size: 0.75rem; font-weight: 500; color: var(--bark);
+      letter-spacing: 0.04em;
+    }
+    .tag.green { background: rgba(78,94,66,0.1); border-color: var(--moss); color: var(--moss); }
+    .tag.amber { background: rgba(200,132,42,0.1); border-color: var(--amber); color: var(--amber); }
+
+    /* ── TIMELINE CONNECTOR ── */
+    .step-connector {
+      display: flex; align-items: center; gap: 1rem;
+      margin: -1rem 0 2.5rem 0; padding-left: 0.5rem;
+      color: var(--sand); font-size: 1.2rem;
+    }
+    .step-connector::after { content: '↓'; color: var(--sand); font-size: 1.4rem; }
+
+    /* ── TAKEAWAYS ── */
+    .takeaway-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1.2rem; margin-top: 1.5rem;
+    }
+    .takeaway-card {
+      background: var(--card-bg); border: 1px solid var(--sand);
+      border-radius: 14px; padding: 1.3rem 1.4rem;
+      box-shadow: 0 2px 10px rgba(59,37,16,0.06);
+      transition: transform 0.3s ease, box-shadow 0.3s;
+    }
+    .takeaway-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(59,37,16,0.12); }
+    .takeaway-icon { font-size: 1.6rem; margin-bottom: 0.6rem; display: block; }
+    .takeaway-card h4 { font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; font-weight: 600; color: var(--walnut); margin-bottom: 0.4rem; }
+    .takeaway-card p { font-size: 0.83rem; color: var(--muted); line-height: 1.65; }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center; padding: 2.5rem 1rem;
+      font-size: 0.82rem; color: var(--muted);
+      border-top: 1px solid var(--sand); background: var(--oat);
+    }
+    footer span { color: var(--terra); }
+    footer a { color: var(--bark); text-decoration: none; font-weight: 500; }
+    footer a:hover { color: var(--terra); }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(22px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* mobile */
+    @media (max-width: 640px) {
+      nav { padding: 1rem 1.2rem; }
+      .nav-links { gap: 1rem; }
+      .page-wrap { padding: 3rem 1rem 5rem; }
+      .prompt-text { font-size: 0.76rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index.html">Gift With Love 🎁</a>
+  <div class="nav-links">
+    <a href="mothers-day.html">Mother's Day</a>
+    <a href="fathers-day.html">Father's Day</a>
+    <a href="how-i-made-this.html" class="active">How I Made This</a>
+  </div>
+</nav>
+
+<div class="page-header">
+  <div class="header-badge">✦ CSIT 212 Final Project ✦</div>
+  <h1>How I <em>Made This</em></h1>
+  <p>This entire website was built using AI — no hand-written code, no manual deployment. Here are the exact prompts I used and what Claude produced at each step.</p>
+</div>
+
+<div class="page-wrap">
+
+  <!-- INTRO -->
+  <div class="intro-box">
+    <p>For my CSIT 212 final project, the requirement was to <strong>use AI completely</strong> — no coding or deployment done by me. I used <strong>Claude (Anthropic)</strong> as my AI assistant to build this full multi-page gift guide website from scratch through a series of natural language prompts.</p>
+    <p>The process was entirely conversational: I described what I wanted, Claude wrote the code, I reviewed it, and refined it with follow-up prompts. Below is a documented walk-through of every major prompt and a summary of what it produced.</p>
+  </div>
+
+  <!-- STEP 1 -->
+  <div class="step">
+    <div class="step-header">
+      <span class="section-num">1</span>
+      <h2>Initial <span>Website Request</span></h2>
+    </div>
+
+    <div class="prompt-label">My Prompt</div>
+    <div class="prompt-block">
+      <div class="prompt-block-bar">
+        <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+        <span>Prompt #1 — Project Setup</span>
+      </div>
+      <div class="prompt-text"><span class="keyword">"Can you make me a website for my CSIT 212 Final project,</span>
+requirements set by the professor are:
+  <span class="highlight">- I must completely use AI</span>
+  <span class="highlight">- No coding or deployment should be done by me</span>
+  <span class="highlight">- The website should be accessible to the public (we will use GitHub)</span>
+  <span class="highlight">- I have the freedom to use this website for anything I would like</span>
+
+I would like to build a website to help people search for gift ideas
+for their mothers and fathers for Mother's and Father's Day.
+
+I would like the website to include <span class="highlight">two separate pages</span> — one for mothers
+and the other for fathers — with gifts targeted towards each.
+
+Please include <span class="highlight">images of products, title, and a button</span>
+that takes the user to the product page."</div>
+    </div>
+
+    <div class="result-label">What Claude Built</div>
+    <div class="result-block">
+      <p>Claude generated a complete 3-file website from a single prompt:</p>
+      <ul>
+        <li><strong>index.html</strong> — A landing page with animated hero cards linking to each gift guide</li>
+        <li><strong>mothers-day.html</strong> — 15 gifts across Pampering, Jewelry, Food, and Experiences with product images, descriptions, prices, and "Shop Now" buttons linking to Amazon</li>
+        <li><strong>fathers-day.html</strong> — 15 gifts across Tech, Outdoor, Food, and Style categories</li>
+        <li><strong>README.md</strong> — Step-by-step GitHub Pages deployment instructions</li>
+      </ul>
+      <div class="tag-row">
+        <span class="tag">3 HTML files</span>
+        <span class="tag">30 gift cards total</span>
+        <span class="tag green">Live product links</span>
+        <span class="tag amber">GitHub deploy guide</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 2 -->
+  <div class="step">
+    <div class="step-header">
+      <span class="section-num">2</span>
+      <h2>More Gifts + <span>Specific Brands</span></h2>
+    </div>
+
+    <div class="prompt-label">My Prompt</div>
+    <div class="prompt-block">
+      <div class="prompt-block-bar">
+        <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+        <span>Prompt #2 — Content Expansion</span>
+      </div>
+      <div class="prompt-text"><span class="keyword">"Can you add more gifts, about 10 more for each.</span>
+
+For <span class="highlight">mothers</span> maybe include:
+  - Sneakers like Nike
+  - Skincare products
+
+For <span class="highlight">fathers</span> maybe include:
+  - Hunting knives from <span class="highlight">MKC</span> and <span class="highlight">Benchmade</span>
+  - Bow accessories like <span class="highlight">Spot Hogg sights</span>
+
+Also include <span class="highlight">search and search filters based on age and categories</span>."</div>
+    </div>
+
+    <div class="result-label">What Claude Built</div>
+    <div class="result-block">
+      <p>Claude expanded both pages from 15 to 25 gifts each and added a fully functional search and filter system — all without any code written by me.</p>
+      <ul>
+        <li><strong>Mother's page additions:</strong> Nike Air Max, Nike Free Run, CeraVe Skincare Set, Luxury Anti-Aging Set, Gua Sha & Jade Roller, Laneige Lip Care, Korean Sheet Mask Collection, Cashmere Cardigan, Birthstone Ring, Percussion Massage Gun</li>
+        <li><strong>Father's page additions:</strong> MKC Montana Hunter Knife, MKC Steak Knife Set, Benchmade Griptilian, Benchmade Saddle Mountain Skinner, Spot Hogg Fast Eddie XL Sight, Spot Hogg Hogg It Sight, Carbon Express Arrows, Solar Lantern, 4K Dash Cam, National Park Pass</li>
+        <li><strong>Search bar</strong> that filters by title and keywords in real time as you type</li>
+        <li><strong>Category filters</strong> (e.g. Spa, Skincare, Jewelry, Hunting, Outdoor, Tech)</li>
+        <li><strong>Age filters</strong> (Under 40 / 40–60 / 60+) that show contextually appropriate gifts</li>
+        <li>Live results counter showing how many gifts match current filters</li>
+      </ul>
+      <div class="tag-row">
+        <span class="tag">50 gifts total</span>
+        <span class="tag green">Real-time search</span>
+        <span class="tag amber">Age + Category filters</span>
+        <span class="tag">MKC · Benchmade · Spot Hogg · Nike</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 3 -->
+  <div class="step">
+    <div class="step-header">
+      <span class="section-num">3</span>
+      <h2>Earthy <span>Redesign</span></h2>
+    </div>
+
+    <div class="prompt-label">My Prompt</div>
+    <div class="prompt-block">
+      <div class="prompt-block-bar">
+        <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+        <span>Prompt #3 — Visual Redesign</span>
+      </div>
+      <div class="prompt-text"><span class="keyword">"Can you change the design to something</span>
+<span class="highlight">warm and inviting, using earthy tones</span>."</div>
+    </div>
+
+    <div class="result-label">What Claude Built</div>
+    <div class="result-block">
+      <p>From a single six-word design direction, Claude completely rebuilt all three pages with a cohesive new visual identity:</p>
+      <ul>
+        <li><strong>New font pairing:</strong> Cormorant Garamond (elegant serif headings) + Jost (warm sans-serif body text)</li>
+        <li><strong>Earthy color palette:</strong> Linen, oat, sand, terracotta, walnut, bark, amber, sage, and forest green — every color drawn from nature</li>
+        <li><strong>Grain texture overlay:</strong> A subtle SVG noise filter on every page gives the feel of natural paper or linen fabric</li>
+        <li><strong>Page-specific theming:</strong> Mother's Day uses warm terracotta and amber; Father's Day uses deep forest green and walnut to feel rugged and outdoorsy</li>
+        <li><strong>Card micro-interactions:</strong> Gradient accent stripe animates in on hover; images scale up gently; buttons shift color warmly</li>
+        <li><strong>Decorative rings</strong> on the home hero and a botanical divider for an organic, handcrafted feel</li>
+      </ul>
+      <div class="tag-row">
+        <span class="tag amber">Terracotta & Walnut</span>
+        <span class="tag green">Forest & Sage</span>
+        <span class="tag">Cormorant Garamond</span>
+        <span class="tag">Grain Texture</span>
+        <span class="tag">Hover Animations</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 4 -->
+  <div class="step">
+    <div class="step-header">
+      <span class="section-num">4</span>
+      <h2>This <span>"How I Made This"</span> Page</h2>
+    </div>
+
+    <div class="prompt-label">My Prompt</div>
+    <div class="prompt-block">
+      <div class="prompt-block-bar">
+        <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+        <span>Prompt #4 — Documentation Page</span>
+      </div>
+      <div class="prompt-text"><span class="keyword">"Add a 'How I Made This' page</span>
+showing the <span class="highlight">prompts I used</span>
+and a <span class="highlight">shortened version of the results</span>."</div>
+    </div>
+
+    <div class="result-label">What Claude Built</div>
+    <div class="result-block">
+      <p>Claude created this very page — a styled documentation page matching the earthy design system, showing each prompt in a terminal-style code block alongside a summary of what was produced.</p>
+      <ul>
+        <li>Added <strong>how-i-made-this.html</strong> as a fourth page in the site</li>
+        <li>Updated the nav bar across all pages to include the new link</li>
+        <li>Designed terminal-style prompt blocks with syntax highlighting using the site's warm color palette</li>
+        <li>Result summaries with bullet points, tag pills, and takeaway cards</li>
+      </ul>
+      <div class="tag-row">
+        <span class="tag">This page!</span>
+        <span class="tag green">4 prompts documented</span>
+        <span class="tag amber">Zero code written by me</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAKEAWAYS -->
+  <div class="step">
+    <div class="step-header">
+      <span class="section-num" style="background: var(--moss);">✦</span>
+      <h2>Key <span>Takeaways</span></h2>
+    </div>
+
+    <div class="takeaway-grid">
+      <div class="takeaway-card">
+        <span class="takeaway-icon">🗣️</span>
+        <h4>Plain English Works</h4>
+        <p>Every prompt was written in plain conversational English — no technical jargon, no coding knowledge required.</p>
+      </div>
+      <div class="takeaway-card">
+        <span class="takeaway-icon">🔁</span>
+        <h4>Iterative Refinement</h4>
+        <p>The site improved through a series of follow-up prompts. Each prompt built on the previous result, adding features and polish.</p>
+      </div>
+      <div class="takeaway-card">
+        <span class="takeaway-icon">🎨</span>
+        <h4>Design in Words</h4>
+        <p>"Warm and inviting, earthy tones" was enough for Claude to generate a complete, cohesive visual redesign across 3 pages.</p>
+      </div>
+      <div class="takeaway-card">
+        <span class="takeaway-icon">⚡</span>
+        <h4>Speed</h4>
+        <p>The entire website — 4 pages, 50 gifts, search/filter system, full design — was built in a single chat session.</p>
+      </div>
+      <div class="takeaway-card">
+        <span class="takeaway-icon">🌐</span>
+        <h4>Fully Deployable</h4>
+        <p>Claude also provided a step-by-step GitHub Pages deployment guide so the site could go live without any developer involvement.</p>
+      </div>
+      <div class="takeaway-card">
+        <span class="takeaway-icon">📚</span>
+        <h4>AI as a Collaborator</h4>
+        <p>Rather than replacing creativity, AI amplified it — I provided the vision and direction; Claude handled every technical detail.</p>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /page-wrap -->
+
+<footer>
+  <a href="index.html">← Back to Home</a> &nbsp;·&nbsp; Made with <span>♥</span> for CSIT 212 Final Project &nbsp;·&nbsp; Gift With Love © 2025
+</footer>
+
+</body>
+</html>

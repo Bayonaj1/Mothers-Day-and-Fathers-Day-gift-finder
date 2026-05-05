@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mother's Day Gifts – Gift With Love</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --linen:    #f5efe6;
+      --oat:      #ede4d3;
+      --sand:     #d9c8ae;
+      --terra:    #b5541c;
+      --terra-dk: #8c3f12;
+      --amber:    #c8842a;
+      --walnut:   #3b2510;
+      --bark:     #6b4226;
+      --sage:     #7a8c6e;
+      --sage-lt:  #aab89e;
+      --text:     #2c1a0e;
+      --muted:    #7a6352;
+      --card-bg:  #faf5ee;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Jost', sans-serif;
+      background: var(--linen); color: var(--text); overflow-x: hidden;
+    }
+    body::before {
+      content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+      opacity: 0.04;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.1rem 3rem;
+      background: rgba(245,239,230,0.93); backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(181,84,28,0.15);
+    }
+    .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 600; color: var(--terra); text-decoration: none; }
+    .nav-links { display: flex; gap: 2.2rem; }
+    .nav-links a {
+      text-decoration: none; font-size: 0.82rem; font-weight: 500;
+      color: var(--bark); letter-spacing: 0.12em; text-transform: uppercase;
+      transition: color 0.2s; position: relative;
+    }
+    .nav-links a::after { content: ''; position: absolute; bottom: -3px; left: 0; right: 0; height: 1.5px; background: var(--terra); transform: scaleX(0); transition: transform 0.25s; transform-origin: left; }
+    .nav-links a:hover, .nav-links a.active { color: var(--terra); }
+    .nav-links a:hover::after, .nav-links a.active::after { transform: scaleX(1); }
+
+    /* PAGE HEADER */
+    .page-header {
+      padding: 9rem 2rem 4rem; text-align: center; position: relative;
+      background:
+        radial-gradient(ellipse at 15% 60%, rgba(200,132,42,0.15) 0%, transparent 50%),
+        radial-gradient(ellipse at 85% 30%, rgba(181,84,28,0.12) 0%, transparent 45%),
+        var(--linen);
+      overflow: hidden;
+    }
+    .page-header::after {
+      content: '';
+      position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(to right, transparent, var(--sand), var(--terra), var(--sand), transparent);
+    }
+    .header-flowers { font-size: 1.8rem; letter-spacing: 0.6rem; display: block; margin-bottom: 1.2rem; opacity: 0.55; }
+    .page-header h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.5rem, 7vw, 4.5rem); font-weight: 600; color: var(--walnut); margin-bottom: 0.8rem; line-height: 1.1; }
+    .page-header h1 em { font-style: italic; color: var(--terra); }
+    .page-header p { font-size: 0.97rem; color: var(--muted); font-weight: 300; max-width: 460px; margin: 0 auto; line-height: 1.75; }
+
+    /* CONTROLS */
+    .controls { max-width: 1200px; margin: 0 auto; padding: 2.5rem 1.5rem 0; }
+
+    .search-wrap { position: relative; margin-bottom: 1.5rem; }
+    .search-wrap input {
+      width: 100%; padding: 1rem 1.4rem 1rem 3.2rem;
+      border: 2px solid var(--sand); border-radius: 14px;
+      font-family: 'Jost', sans-serif; font-size: 0.95rem;
+      background: var(--card-bg); color: var(--text); outline: none;
+      transition: border-color 0.25s, box-shadow 0.25s;
+      box-shadow: 0 2px 8px rgba(59,37,16,0.06);
+    }
+    .search-wrap input:focus { border-color: var(--terra); box-shadow: 0 0 0 4px rgba(181,84,28,0.1); }
+    .search-wrap input::placeholder { color: var(--muted); opacity: 0.6; }
+    .search-icon { position: absolute; left: 1.1rem; top: 50%; transform: translateY(-50%); font-size: 1rem; pointer-events: none; color: var(--muted); }
+
+    .filter-row { display: flex; gap: 2.2rem; flex-wrap: wrap; align-items: flex-start; }
+    .filter-group { display: flex; flex-direction: column; gap: 0.6rem; }
+    .filter-label { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); }
+    .filter-tags { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .filter-tag {
+      padding: 0.38rem 1.1rem; border-radius: 999px;
+      border: 1.5px solid var(--sand); background: var(--card-bg);
+      font-family: 'Jost', sans-serif; font-size: 0.78rem; font-weight: 500;
+      letter-spacing: 0.05em; color: var(--bark); cursor: pointer;
+      transition: all 0.22s;
+      box-shadow: 0 1px 4px rgba(59,37,16,0.06);
+    }
+    .filter-tag:hover { background: var(--oat); border-color: var(--amber); color: var(--terra); }
+    .filter-tag.active { background: var(--terra); color: #fff; border-color: var(--terra); box-shadow: 0 3px 12px rgba(181,84,28,0.28); }
+
+    /* RESULTS BAR */
+    .results-bar { max-width: 1200px; margin: 1.4rem auto 0; padding: 0 1.5rem; font-size: 0.83rem; color: var(--muted); }
+    .results-bar strong { color: var(--terra); font-weight: 600; }
+
+    /* GRID */
+    .grid-section { max-width: 1200px; margin: 0 auto; padding: 1.8rem 1.5rem 6rem; }
+    .cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(268px, 1fr)); gap: 2rem; }
+
+    /* CARD */
+    .card {
+      background: var(--card-bg);
+      border-radius: 20px; overflow: hidden;
+      border: 1px solid rgba(217,200,174,0.6);
+      box-shadow: 0 4px 18px rgba(59,37,16,0.08), 0 1px 3px rgba(59,37,16,0.05);
+      transition: transform 0.38s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.3s;
+      display: flex; flex-direction: column;
+      position: relative;
+    }
+    .card:hover {
+      transform: translateY(-9px);
+      box-shadow: 0 22px 55px rgba(59,37,16,0.16), 0 4px 12px rgba(59,37,16,0.08);
+    }
+    .card.hidden { display: none; }
+
+    .card-img-wrap { width: 100%; height: 220px; overflow: hidden; position: relative; background: var(--oat); }
+    .card-img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.55s ease; }
+    .card:hover .card-img-wrap img { transform: scale(1.07); }
+
+    .card-badge {
+      position: absolute; top: 12px; left: 12px;
+      background: var(--terra); color: #fff;
+      font-size: 0.65rem; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; padding: 0.28rem 0.7rem;
+      border-radius: 999px; box-shadow: 0 2px 8px rgba(181,84,28,0.4);
+    }
+
+    /* warm accent stripe at top of card */
+    .card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(to right, var(--amber), var(--terra), var(--bark));
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .card:hover::before { opacity: 1; }
+
+    .card-body { padding: 1.3rem 1.4rem 1.5rem; flex: 1; display: flex; flex-direction: column; }
+    .card-category { font-size: 0.67rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--amber); margin-bottom: 0.45rem; }
+    .card-title { font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; font-weight: 600; color: var(--walnut); margin-bottom: 0.55rem; line-height: 1.3; }
+    .card-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.6; font-weight: 300; flex: 1; }
+    .card-price { font-size: 1rem; font-weight: 600; color: var(--terra); margin-top: 1rem; margin-bottom: 1rem; letter-spacing: 0.02em; }
+
+    .shop-btn {
+      display: block; width: 100%; padding: 0.8rem;
+      background: var(--walnut); color: var(--sand);
+      text-align: center; text-decoration: none; border-radius: 11px;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.84rem; font-weight: 500; letter-spacing: 0.09em; text-transform: uppercase;
+      transition: background 0.22s, transform 0.15s, box-shadow 0.22s;
+      box-shadow: 0 3px 10px rgba(59,37,16,0.2);
+    }
+    .shop-btn:hover { background: var(--terra); color: #fff; transform: scale(1.02); box-shadow: 0 6px 18px rgba(181,84,28,0.32); }
+    .shop-btn::after { content: '  →'; }
+
+    /* NO RESULTS */
+    #noResults { display: none; text-align: center; padding: 4rem 1rem; width: 100%; }
+    #noResults h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; color: var(--walnut); margin-bottom: 0.5rem; }
+    #noResults p { color: var(--muted); font-size: 0.9rem; }
+
+    /* FOOTER */
+    footer { text-align: center; padding: 2.5rem 1rem; font-size: 0.82rem; color: var(--muted); border-top: 1px solid var(--sand); background: var(--oat); }
+    footer span { color: var(--terra); }
+    footer a { color: var(--bark); text-decoration: none; font-weight: 500; }
+    footer a:hover { color: var(--terra); }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index.html">Gift With Love 🎁</a>
+  <div class="nav-links">
+    <a href="mothers-day.html" class="active">Mother's Day</a>
+    <a href="fathers-day.html">Father's Day</a>
+    <a href="how-i-made-this.html">How I Made This</a>
+  </div>
+</nav>
+
+<div class="page-header">
+  <span class="header-flowers">🌸💐🌹🌺🌷</span>
+  <h1>Gifts for <em>Mom</em></h1>
+  <p>Show her how much she means — 25 curated gifts across spa, skincare, fashion, sneakers, jewelry, food, and more.</p>
+</div>
+
+<div class="controls">
+  <div class="search-wrap">
+    <span class="search-icon">🔍</span>
+    <input type="text" id="searchInput" placeholder="Search gifts… e.g. 'Nike', 'skincare', 'jewelry', 'spa'" autocomplete="off"/>
+  </div>
+  <div class="filter-row">
+    <div class="filter-group">
+      <div class="filter-label">Category</div>
+      <div class="filter-tags" id="catFilters">
+        <button class="filter-tag active" data-cat="all">All Gifts</button>
+        <button class="filter-tag" data-cat="spa">Spa &amp; Wellness</button>
+        <button class="filter-tag" data-cat="skincare">Skincare</button>
+        <button class="filter-tag" data-cat="jewelry">Jewelry</button>
+        <button class="filter-tag" data-cat="fashion">Fashion &amp; Shoes</button>
+        <button class="filter-tag" data-cat="food">Food &amp; Drinks</button>
+        <button class="filter-tag" data-cat="experience">Experiences</button>
+        <button class="filter-tag" data-cat="home">Home &amp; Comfort</button>
+      </div>
+    </div>
+    <div class="filter-group">
+      <div class="filter-label">Mom's Age</div>
+      <div class="filter-tags" id="ageFilters">
+        <button class="filter-tag active" data-age="all">All Ages</button>
+        <button class="filter-tag" data-age="young">Under 40</button>
+        <button class="filter-tag" data-age="mid">40–60</button>
+        <button class="filter-tag" data-age="senior">60+</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="results-bar">Showing <strong id="resultCount">25</strong> gifts for Mom</div>
+
+<div class="grid-section">
+<div class="cards-grid" id="cardsGrid">
+
+  <!-- SPA & WELLNESS -->
+  <div class="card" data-cat="spa" data-age="mid senior" data-keywords="luxury spa gift basket bath bombs aromatherapy candles body lotion robe relaxation">
+    <div class="card-img-wrap"><img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=500&q=80" alt="Spa Gift Set"/><span class="card-badge">Best Seller</span></div>
+    <div class="card-body">
+      <div class="card-category">Spa &amp; Wellness</div>
+      <div class="card-title">Luxury Spa Gift Basket</div>
+      <div class="card-desc">Bath bombs, aromatherapy candles, body lotion, and a soft robe — the ultimate relaxation bundle for the mom who never slows down.</div>
+      <div class="card-price">From $45</div>
+      <a class="shop-btn" href="https://www.amazon.com/s?k=luxury+spa+gift+basket+for+mom+mothers+day" target="_blank" rel="noopener">Shop Now</a>
+    </div>
+  </div>
+
+  <div class="card" data-cat="spa" data-age="young mid senior" data-keywords="scented candle soy lavender rose vanilla aromatherapy hand poured">
+    <div class="card-img-wrap"><img src="https://images.unsplash.com/photo-1608248597279-f99d160bfcbc?w=500&q=80" alt="Scented Candles"/></div>
+    <div class="card-body">
+      <div class="card-category">Spa &amp; Wellness</div>
+      <div class="card-title">Artisan Scented Candle Set</div>
+      <div class="card-desc">Hand-poured soy candles in elegant glass jars with calming lavender, rose, and vanilla scents — pure ambiance at home.</div>
+      <div class="card-price">From $30</div>
+      <a class="shop-btn" href="https://www.amazon.com/s?k=luxury+scented+candle+set+mothers+day+gift" target="_blank" rel="noopener">Shop Now</a>
+    </div>
+  </div>
+
+  <div class="card" data-cat="spa" data-age="mid senior" data-keywords="satin kimono robe comfort luxury soft morning lounge">
+    <div class="card-img-wrap"><img src="https://images.unsplash.com/photo-1591370874773-6702e8f12fd8?w=500&q=80" alt="Silk Robe"/></div>
+    <div class="card-body">
+      <div class="card-category">Spa &amp; Wellness</div>
+      <div class="card-title">Satin Kimono Robe</div>
+      <div class="card-desc">Elegantly soft satin robe she can wear all morning with her coffee. Available in multiple colors, one size fits most.</div>
+      <div class="card-price">From $35</div>
+      <a class="shop-btn" href="https://www.amazon.com/s?k=satin+kimono+robe+mothers+day+gift" target="_blank" rel="noopener">Shop Now</a>
+    </div>
+  </div>
+
+  <div class="card" data-cat="spa" data-age="young mid senior" data-keywords="massage gun percussion muscle recovery deep tissue therapy relaxation wellness">
+    <div class="card-img-wrap"><img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=500&q=80" alt="Massage Gun"/><span class="card-badge">Trending</span></div>
+    <div class="card-body">
+      <div class="card-category">Spa &amp; Wellness</div>
+      <div class="card-title">Percussion Massage Gun</div>
+      <div class="card-desc">Quiet, powerful deep-tissue massage gun with 6 attachments and 30 speeds — relief for sore muscles any time she needs it.</div>
+      <div class="card-price">From $60</div>
+      <a class="shop-btn" href="https://www.amazon.com/s?k=percussion+massage+gun+mothers+day+gift" target="_blank" rel="noopener">Shop Now</a>
+    </div>
+  </div>
+
+  <!-- SKINCARE -->
+  <div class="card" data-cat="skincare" data-age="young mid" data-keywords="cerave moisturizer cleanser skincare routine face wash daily dermatologist">
+    <div class="card-img-wrap"><img src="https://images.unsplash.com/photo-1556228720-195a672e8a03?w=500&q=80" alt="Skincare"/><span class="card-badge">Top Rated</span></div>
+    <div class="card-body">
+      <div class="card-category">Skincare</div>
+      <div class="card-title">CeraVe Skincare Essentials Set</div>
+      <div class="card-desc">The dermatologist-recommended duo — hydrating cleanser and moisturizing cream — in a gift-ready bundle she'll use daily.</div>
+      <div class="card-price">From $28</div>
+      <a class="shop-btn" href="https://www.amazon.com/s?k=cerave+skincare+gift+set+mothers+day" target="_blank" rel="noopener">Shop Now</a>
+    </div>
+  </div>
+
+  <div class="card" data-cat="skincare" data-age="mid senior" data-keywords="anti aging serum retinol moisturizer eye cream vitamin c premium skincare routine wrinkle">
+    <div class="card-img-wrap"><img src="https://images.unsplash.com/photo-1583241475880-083f84372725?w=500&q=80" alt="Skincare Set"/></div>
+    <div class="card-body">
+      <div class="card-category">Skincare</div>
+      <div class="card-title">Luxury Anti-Aging Skincare Set</div>
+      <div class="card-desc">Vitamin C serum, retinol moisturizer, and eye cream — a complete facial routine for radiant, youthful skin she'll love.</div>
+      <div class="card-price">From $65</div>
+      <a class="shop-btn" href="https://www.amazon.com/s?k=luxury+anti+aging+skincare+gift+set+mothers+day" target="_blank" rel="noopener">Shop Now</a>
+    </div>
+  </div>
+
+  <div class="card" data-cat="skincare" data-age="young mid" data-keywords="gua sha jade roller facial massage skincare glow depuff stone rose quartz">
+    <div class="card-img-wrap"><img src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=500&q=80" alt="Gua Sha"/></div>
+    <div class="card-body">
+      <div class="card-category">Skincare</div>
+      <div class="card-title">Gua Sha &amp; Jade Roller Set</div>
+      <div class="card-desc">Genuine rose quartz gua sha stone and jade roller to boost circulation, reduce puffiness, and elevate her skincare ritual.</div>
+      <div class="card-price">From $18</div>
+      <a class="shop-btn" href="https://www.amazon.com/s?k=gua+sha+jade+roller+set+gift" target="_blank" rel="noopener">Shop Now</a>
+    </div>
+  </div>
+
+  <div class="card" data-cat="skincare" data-age="young mid senior" data-keywords="laneige lip mask sleeping overnight moisturizing korean skincare lip care plump">
+    <div class="card-img-wrap"><img src="https://images.unsplash.com/photo-1631214500004-ac88f53e3b28?w=500&q=80" alt="Lip Care"/><span class="card-badge">Fan Fave</span></div>
+    <div class="card-body">
+      <div class="card-category">Skincare</div>
+      <div class="card-title">Laneige Lip Care Gift Set</div>
+      <div class="card-desc">The cult-favorite overnight lip sleeping mask that plumps and restores — the perfect little luxury she'll reach for every night.</div>
+      <div class="card-price">From $22</div>
+      <a class="shop-btn" href="https://www.amazon.com/s?k=laneige+lip+sleeping+mask+gift+set" target="_blank" rel="noopener">Shop Now</a>
+    </div>
+  </div>
+
+  <div class="card" data-cat="skincare" data-age="young mid" data-keywords="sheet mask korean face mask skincare pampering hydrating glow overnight self care">
+    <div class="card-img-wrap"><img src="https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=500&q=80" alt="Face Masks"/></div>
+    <div class="card-body">
+      <div class="card-category">Skincare</div>
+      <div class="card-title">Korean Sheet Mask Collection</div>
+      <div class="card-desc">A variety pack of 20 premium Korean sheet masks — hydrating, brightening, firming — for a glow-up spa night at home.</div>
+      <div class="card-price">From $20</div>
+      <a class="shop-btn" href="https://www.amazon.com/s?k=korean+sheet+mask+collection+gift+mothers+day" target="_blank" rel="noopener">Shop Now</a>
+    </div>
+  </div>
+
+  <!-- FASHION & SHOES -->
+  <div class="card" data-cat="fashion" data-age="young mid" data-keywords="nike air max sneakers shoes women running athletic footwear style comfortable">
+    <div class="card-img-wrap"><img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500&q=80" alt="Nike Sneakers"/><span class="card-badge">🔥 Hot Pick</span></div>
+    <div class="card-body">
+      <div class="card-category">Fashion &amp; Shoes</div>
+      <div class="card-title">Nike Air Max Women's Sneakers</div>
+      <div class="card-desc">Iconic Nike Air cushioning meets everyday style — perfect for morning walks, errands, or weekend adventures in all-day comfort.</div>
+      <div class="card-price">From $110</div>
+      <a class="shop-btn" href="https://www.nike.com/w/womens-air-max-shoes-37v7jzy7ok" target="_blank" rel="noopener">Shop Nike</a>
+    </div>
+  </div>
+
+  <div class="card" data-cat="fashion" data-age="young mid" data-keywords="nike free run women running shoes athletic gym workout lightweight flexible breathable">
+    <div class="card-img-wrap"><img src="https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=500&q=80" alt="Running Shoes"/></div>
+    <div class="card-body">
+      <div class="card-category">Fashion &amp; Shoes</div>
+      <div class="card-title">Nike Free Run Women's Shoes</div>
+      <div class="card-desc">Lightweight, flexible, and fast — the Nike Free Run wraps in natural motion and breathable mesh for all-day energy.</div>
+      <div class="card-price">From $100</div>
+      <a class="shop-btn" href="https://www.nike.com/w/womens-free-shoes-1gdj0zy7ok" target="_blank" rel="noopener">Shop Nike</a>
+    </div>
+  </div>
+
+  <div class="card" data-cat="fashion" data-age="young mid senior" data-keywords="leather tote bag handbag women work fashion structured shoulder purse">
+    <div class="card-img-wrap"><img src="https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=500&q=80" alt="Handbag"/></div>
+    <div class="card-body">
+      <div class="card-category">Fashion &amp; Shoes</div>
+      <div class="card-title">Structured Leather Tote Bag</div>
+      <div class="card-desc">A chic everyday tote in genuine leather with interior pockets — stylish enough for work, spacious enough for everything.</div>
+      <div class="card-price">From $75</div>
+      <a class="shop-btn" href="https://www.amazon.com/s?k=leather+tote+bag+mothers+day+gift+women" target="_blank" rel="noopener">Shop Now</a>
+    </div>
+  </div>
+
+  <div class="card" data-cat="fashion" data-age="mid senior" data-keywords="cashmere cardigan sweater cozy soft women fashion comfort warm knit layer">
+    <div class="card-img-wrap"><img src="https://images.unsplash.com/photo-1434389677669-e08b4cac3105?w=500&q=80" alt="Cardigan"/></div>
+    <div class="card-body">
+      <div class="card-category">Fashion &amp; Shoes</div>
+      <div class="card-title">Soft Cashmere Blend Cardigan</div>
+      <div class="card-desc">A luxuriously soft open-front cardigan in classic neutral tones — the kind of layer she'll reach for morning after morning.</div>
+      <div class="card-price">From $55</div>
+      <a class="shop-btn" href="https://www.amazon.com/s?k=cashmere+cardigan+women+gift+mothers+day" target="_blank" rel="noopener">Shop Now</a>
+    </div>
+  </div>
+
+  <!-- JEWELRY -->
+  <div class="card" data-cat="jewelry" data-age="young mid senior" data-keywords="gold initial necklace personalized letter jewelry chain keepsake dainty 14k">
+    <div class="card-img-wrap"><img src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=500&q=80" alt="Gold Necklace"/><span class="card-badge">Most Gifted</span></div>
+    <div class="card-body">
+      <div class="card-category">Jewelry</div>
+      <div class="card-title">Dainty Gold Initial Necklace</div>
+      <div class="card-desc">Personalized 14k gold-filled initial necklace — a timeless keepsake she'll wear every day close to her heart.</div>
+      <div class="card-price">From $25</div>
+      <a class="shop-btn" href="https://www.amazon.com/s?k=gold+initial+necklace+mothers+day+personalized" target="_blank" rel="noopener">Shop Now</a>
+    </div>
+  </div>
+
+  <div class="card" data-cat="jewelry" data-age="mid senior" data-keywords="pearl earrings drop sterling silver classic elegant women gift freshwater">
+    <div class="card-img-wrap"><img src="https://images.unsplash.com/photo-1584302179602-e4c3d3fd629d?w=500&q=80" alt="Pearl Earrings"/></div>
+    <div class="card-body">
+      <div class="card-category">Jewelry</div>
+      <div class="card-title">Classic Pearl Drop Earrings</div>
+      <div class="card-desc">Elegant freshwater pearl earrings in a sterling silver setting — the perfect combination of classic and modern style.</div>
+      <div class="card-price">From $38</div>
+      <a class="shop-btn" href="https://www.amazon.com/s?k=pearl+drop+earrings+mothers+day+gift" target="_blank" rel="noopener">Shop Now</a>
+    </div>
+  </div>
+
+  <div class="card" data-cat="jewelry" data-age="young mid" data-keywords="birthstone ring stackable gold silver gemstone women personalized jewelry dainty">
+    <div class="card-img-wrap"><img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=500&q=80" alt="Birthstone Ring"/><span class="card-badge">Personalized</span></div>
+    <div class="card-body">
+      <div class="card-category">Jewelry</div>
+      <div class="card-title">Birthstone Stackable Ring</div>
+      <div class="card-desc">A dainty 14k gold-filled ring set with her birthstone — stackable, elegant, and deeply personal. Great alone or layered.</div>
+      <div class="card-price">From $32</div>
+      <a class="shop-btn" href="https://www.amazon.com/s?k=birthstone+stackable+ring+mothers+day+personalized" target="_blank" rel="noopener">Shop Now</a>
+    </div>
+  </div>
+
+  <div class="card" data-cat="jewelry" data-age="young mid senior" data-keywords="eternal preserved rose glass dome romantic love gift bell jar flower keepsake">
+    <div class="card-img-wrap"><img src="https://images.unsplash.com/photo-1602173574767-37ac01994b2a?w=500&q=80" alt="Eternal Rose"/></div>
+    <div class="card-body">
+      <div class="card-category">Jewelry</div>
+      <div class="card-title">Eternal Rose in Glass Dome</div>
+      <div class="card-desc">A real preserved rose in a stunning glass dome that lasts for years — a romantic and meaningful symbol of lasting love.</div>
+      <div class="card-price">From $28</div>
+      <a class="shop-btn" href="https://www.amazon.com/s?k=preserved+rose+glass+dome+mothers+day" target="_blank" rel="noopener">Shop Now</a>
+    </div>
+  </div>
+
+  <!-- FOOD & DRINKS -->
+  <div class="card" data-cat="food" data-age="young mid senior" data-keywords="chocolate truffles pralines gourmet gift box sweets candy artisan">
+    <div class="card-img-wrap"><img src="https://images.unsplash.com/photo-1481391319762-47dff72954d9?w=500&q=80" alt="Chocolate Box"/><span class="card-badge">Sweet Pick</span></div>
+    <div class="card-body">
+      <div class="card-category">Food &amp; Drinks</div>
+      <div class="card-title">Artisan Chocolate Gift Box</div>
+      <div class="card-desc">Handcrafted truffles and pralines from around the world in a beautifully curated, elegant gift box she'll savor slowly.</div>
+      <div class="card-price">From $32</div>
+      <a class="shop-btn" href="https://www.amazon.com/s?k=artisan+chocolate+gift+box+mothers+day" target="_blank" rel="noopener">Shop Now</a>
+    </div>
+  </div>
+
+  <div class="card" data-cat="food" data-age="mid senior" data-keywords="floral tea chamomile rose hibiscus jasmine loose leaf sampler gift infuser tea set">
+    <div class="card-img-wrap"><img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=500&q=80" alt="Tea Set"/></div>
+    <div class="card-body">
+      <div class="card-category">Food &amp; Drinks</div>
+      <div class="card-title">Floral Loose Leaf Tea Sampler</div>
+      <div class="card-desc">Premium floral teas — chamomile, rose, hibiscus, and jasmine — with a hand-painted tea infuser. A cozy ritual in a box.</div>
+      <div class="card-price">From $22</div>
+      <a class="shop-btn" href="https://www.amazon.com/s?k=floral+tea+sampler+gift+set+mothers+day" target="_blank" rel="noopener">Shop Now</a>
+    </div>
+  </div>
+
+  <div class="card" data-cat="food" data-age="young mid senior" data-keywords="personalized coffee mug custom mom message morning brew espresso hot drink">
+    <div class="card-img-wrap"><img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=500&q=80" alt="Coffee Mug"/></div>
+    <div class="card-body">
+      <div class="card-category">Food &amp; Drinks</div>
+      <div class="card-title">Personalized Coffee Mug + Blend</div>
+      <div class="card-desc">A custom "World's Best Mom" mug paired with a bag of small-batch specialty roast coffee — her perfect morning ritual.</div>
+      <div class="card-price">From $28</div>
+      <a class="shop-btn" href="https://www.amazon.com/s?k=personalized+mom+coffee+mug+gift+set" target="_blank" rel="noopener">Shop Now</a>
+    </div>
+  </div>
+
+  <!-- HOME & COMFORT -->
+  <div class="card" data-cat="home" data-age="mid senior" data-keywords="garden planter pot personalized mom gift plant flower gardening herb terracotta">
+    <div class="card-img-wrap"><img src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=500&q=80" alt="Garden Plants"/></div>
+    <div class="card-body">
+      <div class="card-category">Home &amp; Comfort</div>
+      <div class="card-title">Personalized Garden Planter Set</div>
+      <div class="card-desc">Hand-painted terracotta planters with her name and a selection of herb seeds — perfect for the mom with a green thumb.</div>
+      <div class="card-price">From $35</div>
+      <a class="shop-btn" href="https://www.amazon.com/s?k=personalized+garden+planter+pot+mothers+day+gift" target="_blank" rel="noopener">Shop Now</a>
+    </div>
+  </div>
+
+  <div class="card" data-cat="home" data-age="young mid senior" data-keywords="weighted blanket cozy warm anxiety comfort sleep relaxation soft minky">
+    <div class="card-img-wrap"><img src="https://images.unsplash.com/photo-1631157769375-6a9f99a4c23a?w=500&q=80" alt="Weighted Blanket"/><span class="card-badge">Cozy Pick</span></div>
+    <div class="card-body">
+      <div class="card-category">Home &amp; Comfort</div>
+      <div class="card-title">Luxe Weighted Blanket</div>
+      <div class="card-desc">A 15 lb weighted blanket in ultra-soft minky fabric — clinically shown to reduce stress and improve sleep. She'll never want to get up.</div>
+      <div class="card-price">From $60</div>
+      <a class="shop-btn" href="https://www.amazon.com/s?k=luxury+weighted+blanket+gift+mothers+day" target="_blank" rel="noopener">Shop Now</a>
+    </div>
+  </div>
+
+  <div class="card" data-cat="home" data-age="mid senior" data-keywords="dried flower wildflower arrangement bouquet home decor floral pampas grass vase">
+    <div class="card-img-wrap"><img src="https://images.unsplash.com/photo-1599598425947-5202edd56bdb?w=500&q=80" alt="Dried Flowers"/></div>
+    <div class="card-body">
+      <div class="card-category">Home &amp; Comfort</div>
+      <div class="card-title">Dried Wildflower Arrangement</div>
+      <div class="card-desc">A stunning preserved wildflower and pampas grass arrangement in a ceramic vase — beautiful home décor that lasts for years.</div>
+      <div class="card-price">From $42</div>
+      <a class="shop-btn" href="https://www.amazon.com/s?k=dried+flower+arrangement+gift+mothers+day" target="_blank" rel="noopener">Shop Now</a>
+    </div>
+  </div>
+
+  <!-- EXPERIENCES -->
+  <div class="card" data-cat="experience" data-age="young mid senior" data-keywords="spa day experience massage facial manicure pedicure relaxation gift card spafinder">
+    <div class="card-img-wrap"><img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=500&q=80" alt="Spa Day"/><span class="card-badge">Experience</span></div>
+    <div class="card-body">
+      <div class="card-category">Experiences</div>
+      <div class="card-title">Full Day Spa Experience</div>
+      <div class="card-desc">Give her a day of complete bliss — massage, facial, manicure and pedicure. Book through SpaFinder for local options near her.</div>
+      <div class="card-price">From $99</div>
+      <a class="shop-btn" href="https://www.spafinder.com/spa-gift-cards/" target="_blank" rel="noopener">Book Spa Day</a>
+    </div>
+  </div>
+
+  <div class="card" data-cat="experience" data-age="young mid" data-keywords="cooking class masterclass online culinary chef food wine pasta baking lessons">
+    <div class="card-img-wrap"><img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=500&q=80" alt="Cooking Class"/></div>
+    <div class="card-body">
+      <div class="card-category">Experiences</div>
+      <div class="card-title">Online Cooking Masterclass</div>
+      <div class="card-desc">A MasterClass subscription so she can learn pasta-making, pastry, or sushi from world-class chefs in her own kitchen.</div>
+      <div class="card-price">From $120/yr</div>
+      <a class="shop-btn" href="https://www.masterclass.com/" target="_blank" rel="noopener">Get MasterClass</a>
+    </div>
+  </div>
+
+  <div class="card" data-cat="experience" data-age="young mid senior" data-keywords="custom family photo book shutterfly keepsake album memories printed hardcover">
+    <div class="card-img-wrap"><img src="https://images.unsplash.com/photo-1512314889357-e157c22f938d?w=500&q=80" alt="Photo Book"/></div>
+    <div class="card-body">
+      <div class="card-category">Experiences</div>
+      <div class="card-title">Custom Family Photo Book</div>
+      <div class="card-desc">Turn your favorite family memories into a beautifully printed hardcover photo book she'll treasure for a lifetime.</div>
+      <div class="card-price">From $20</div>
+      <a class="shop-btn" href="https://www.shutterfly.com/photo-books/" target="_blank" rel="noopener">Create Yours</a>
+    </div>
+  </div>
+
+  <div id="noResults" style="display:none; text-align:center; padding:5rem 1rem; width:100%;">
+    <div style="font-size:3rem; margin-bottom:1rem;">💐</div>
+    <h3 style="font-family:'Cormorant Garamond',serif; font-size:1.8rem; color:#3b2510; margin-bottom:0.5rem;">No gifts found</h3>
+    <p style="color:#7a6352; font-size:0.9rem;">Try adjusting your search or filters.</p>
+  </div>
+
+</div>
+</div>
+
+<footer>
+  <a href="index.html">← Back to Home</a> &nbsp;·&nbsp; Made with <span>♥</span> for CSIT 212 Final Project &nbsp;·&nbsp; Gift With Love © 2025
+</footer>
+
+<script>
+  const cards = Array.from(document.querySelectorAll('.card[data-cat]'));
+  const noResults = document.getElementById('noResults');
+  const resultCount = document.getElementById('resultCount');
+  let activeCat = 'all', activeAge = 'all', searchQuery = '';
+
+  function applyFilters() {
+    let visible = 0;
+    cards.forEach(card => {
+      const cat = card.dataset.cat;
+      const ages = card.dataset.age;
+      const kw = (card.dataset.keywords + ' ' + card.querySelector('.card-title').textContent).toLowerCase();
+      const q = searchQuery.toLowerCase().trim();
+      const ok = (activeCat === 'all' || cat === activeCat)
+               && (activeAge === 'all' || ages.includes(activeAge))
+               && (q === '' || kw.includes(q));
+      card.classList.toggle('hidden', !ok);
+      if (ok) visible++;
+    });
+    resultCount.textContent = visible;
+    noResults.style.display = visible === 0 ? 'block' : 'none';
+  }
+
+  document.getElementById('searchInput').addEventListener('input', e => { searchQuery = e.target.value; applyFilters(); });
+  document.getElementById('catFilters').addEventListener('click', e => {
+    const btn = e.target.closest('[data-cat]'); if (!btn) return;
+    document.querySelectorAll('#catFilters [data-cat]').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active'); activeCat = btn.dataset.cat; applyFilters();
+  });
+  document.getElementById('ageFilters').addEventListener('click', e => {
+    const btn = e.target.closest('[data-age]'); if (!btn) return;
+    document.querySelectorAll('#ageFilters [data-age]').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active'); activeAge = btn.dataset.age; applyFilters();
+  });
+</script>
+</body>
+</html>
